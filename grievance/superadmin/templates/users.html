@@ -1,0 +1,233 @@
+{%load static%}
+{% load mathfilters %}
+{%include 'super_admin_header.html'%}
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            
+            <div class="row ">
+             
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-row justify-content-between">
+                      <h4 class="card-title">Manage Designation</h4>
+                      
+                      <button type="button" class="btn btn-inverse-success btn-fw" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+ Add New User</button>
+                    </div>
+                    <br>
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body">
+                           
+                            <div class="table-responsive">
+                              <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th> User Id </th>
+                                    <th> Surname </th>
+                                    <th> Username </th>
+                                    <th> Fathername </th>
+                                    <th> Collage name </th>
+                                    <th>  Department Name </th>
+                                    <th> Designation </th>
+                                    <th>  Semester </th>
+                                    <th>  Phone number </th>
+                                    <th> Email </th>
+                                    <th>  Address </th>
+                                    <th>  Actions </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {%for i in Users%}
+                                  <tr>
+                                    <td style="color:white;"> {{i.id}} </td>
+                                    <td style="color:white;"> {{i.surName}} </td>
+                                    <td style="color:white;"> {{i.userName}} </td>
+                                    <td style="color:white;"> {{i.fatherName}} </td>
+                                    <td style="color:white;"> {{i.department.collageId.collageName}} </td>
+                                    <td style="color:white;"> {{i.department.departmentname}} </td>
+                                    <td style="color:white;"> {{i.designation.designationName}} </td>
+                                    <td style="color:white;"> {{i.semester}} </td>
+                                    <td style="color:white;"> {{i.phoneNumber}} </td>
+                                    <td style="color:white;"> {{i.email}} </td>
+                                    <td style="color:white;"> {{i.address}} </td>
+                                   
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuOutlineButton6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuOutlineButton6">
+                                  <button type="button" class="btn btn-inverse-warning btn-fw" data-bs-toggle="modal" data-bs-target="#staticBackdropp{{i.id}}">Update</button>
+                                              <a href="/superadmin/deleteUser/{{ i.id }}"><button type="button" class="btn btn-inverse-danger btn-fw">Delete</button></a>
+                                            </div>
+                                    </td>
+                                    <div class="modal fade" id="staticBackdropp{{i.id}}"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="staticBackdropLabel">UPDATE USER</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <form method = "post" action="/superadmin/updateUser/{{i.id}}" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                  <label for="disabledTextInput">USER ID :{{i.id}}</label>
+                                                  </div>
+                                                  <div class="col-md-10">
+                                                    <label for="validationCustom03" class="form-label">User Name</label>
+                                                    <input type="text" class="form-control" id="userName" name="userName" value="{{i.userName}}" required> 
+                                                  </div>
+                                                  <div class="col-md-10">
+                                                    <label for="validationCustom03" class="form-label">Surname</label>
+                                                    <input type="text" class="form-control" id="surName" name="surName" value="{{i.surName}}" required> 
+                                                  </div>
+                                                  <div class="col-md-10">
+                                                    <label for="validationCustom03" class="form-label">Father Name</label>
+                                                    <input type="text" class="form-control" id="fatherName" name="fatherName" value="{{i.fatherName}}" required> 
+                                                  </div>
+                                                  <br>
+                                                  <label for="validationCustom03" class="form-label">Choose Department:</label>
+                                                  <select class="col-md-10 form-select" name="department" id="department"   aria-label="Default select example">
+                                                    {%for j in Department%}
+                                                    <option value="{{j.departmentname}}">{{j.departmentname}}</option>
+                                                    {%endfor%}
+                                                  </select>
+                                                  <br><label for="validationCustom03" class="form-label">Choose Designation:</label>
+                                                  <select class="col-md-10 form-select" name="designation" id="designation"  aria-label="Default select example">
+                                                    {%for j in Designation%}
+                                                    <option value="{{j.designationName}}">{{j.designationName}}</option>
+                                                    {%endfor%}
+                                                  </select>
+                                                  <br>
+                                                  <div class="col-md-10">
+                                                    <label for="validationCustom03" class="form-label">Semester</label>
+                                                    <input type="number" class="form-control" id="semester" name="semester" value="{{i.semester}}" required> 
+                                                  </div>
+                                                  <div class="col-md-10">
+                                                    <label for="validationCustom03" class="form-label">Phone Number</label>
+                                                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="{{i.phoneNumber}}" required> 
+                                                  </div>
+                                                  <div class="col-md-10">
+                                                    <label for="validationCustom03" class="form-label">Email</label>
+                                                    <input type="email" class="form-control" id="email" name="email" value="{{i.email}}" required> 
+                                                  </div>
+                                                  <div class="col-md-10">
+                                                    <label for="validationCustom03" class="form-label">Address</label>
+                                                    <input type="textarea" class="form-control" id="address" name="address" value="{{i.address}}" required> 
+                                                  </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-inverse-danger btn-fw" data-bs-dismiss="modal">Close</button>
+                                              <input type="submit" class="btn btn-inverse-success btn-fw" value="update"></input>
+                                            </form>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </tr>
+                                {%endfor%}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+          <!-- content-wrapper ends -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <!--Add Designation-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">ADD NEW USER</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method = "POST" action="/superadmin/addUser/" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="col-md-10">
+                <label for="validationCustom03" class="form-label">User Name</label>
+                <input type="text" class="form-control" id="userName" name="userName" required> 
+              </div>
+              <div class="col-md-10">
+                <label for="validationCustom03" class="form-label">Surname</label>
+                <input type="text" class="form-control" id="surName" name="surName" required> 
+              </div>
+              <div class="col-md-10">
+                <label for="validationCustom03" class="form-label">Father Name</label>
+                <input type="text" class="form-control" id="fatherName" name="fatherName" required> 
+              </div>
+              <br>
+              <label for="validationCustom03" class="form-label">Choose Department:</label>
+              <select class="col-md-10 form-select" name="department" id="department"  aria-label="Default select example">
+                {%for j in Department%}
+                <option value="{{j.departmentname}}">{{j.departmentname}}</option>
+                {%endfor%}
+              </select>
+              <br><label for="validationCustom03" class="form-label">Choose Designation:</label>
+              <select class="col-md-10 form-select" name="designation" id="designation"  aria-label="Default select example">
+                {%for j in Designation%}
+                <option value="{{j.designationName}}">{{j.designationName}}</option>
+                {%endfor%}
+              </select>
+              <br>
+              <div class="col-md-10">
+                <label for="validationCustom03" class="form-label">Semester</label>
+                <input type="number" class="form-control" id="semester" name="semester" required> 
+              </div>
+              <div class="col-md-10">
+                <label for="validationCustom03" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required> 
+              </div>
+              <div class="col-md-10">
+                <label for="validationCustom03" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email"  required> 
+              </div>
+              <div class="col-md-10">
+                <label for="validationCustom03" class="form-label">Address</label>
+                <input type="textarea" class="form-control" id="address" name="address" required> 
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-inverse-danger btn-fw" data-bs-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-inverse-success btn-fw"></input>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="{%static 'assets/vendors/js/vendor.bundle.base.js'%}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{%static 'assets/vendors/chart.js/Chart.min.js'%}"></script>
+    <script src="{%static 'assets/vendors/progressbar.js/progressbar.min.js'%}"></script>
+    <script src="{%static 'assets/vendors/jvectormap/jquery-jvectormap.min.js'%}"></script>
+    <script src="{%static 'assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js'%}"></script>
+    <script src="{%static 'assets/vendors/owl-carousel-2/owl.carousel.min.js'%}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{%static 'assets/js/off-canvas.js'%}"></script>
+    <script src="{%static 'assets/js/hoverable-collapse.js'%}"></script>
+    <script src="{%static 'assets/js/misc.js'%}"></script>
+    <script src="{%static 'assets/js/settings.js'%}"></script>
+    <script src="{%static 'assets/js/todolist.js'%}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{%static 'assets/js/dashboard.js'%}"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>
