@@ -7,7 +7,7 @@ from django.db.models import *
 from django.core.mail import send_mail,EmailMultiAlternatives
 from django.conf import settings
 from pathlib import Path,os
-from django.http import HttpResponse
+from django.http import *
 # Create your views here.
 def super_admin_index(request):
      if 'username' not in request.session:
