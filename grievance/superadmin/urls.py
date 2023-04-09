@@ -10,9 +10,6 @@ urlpatterns = [
 
     path('manageLogin/',views.manageLogin,name='manageLogin'),
     path('manageLogout/',views.manageLogout,name='manageLogout'),
-    
-    
-    path('login/', views.manageLogin, name='manageLogin'),
     path('functionLogin/', views.functionLogin, name='functionLogin'),
 
     path('addCollage/',views.addCollage,name='addCollage'),

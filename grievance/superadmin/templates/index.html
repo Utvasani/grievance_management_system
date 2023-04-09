@@ -1,5 +1,5 @@
 {%load static%}
-{%include 'super_admin_header.html'%}
+{%include 'header.html'%}
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
@@ -309,7 +309,7 @@
                             </td>
                             <td>
                               <img src="{%static 'assets/images/faces/face1.jpg'%}" alt="image" />
-                              <span class="pl-2">Henry Klein</span>
+                              <span class="pl-2">{{name.email}}</span>
                             </td>
                             <td> 02312 </td>
                             <td> $14,500 </td>

@@ -35,19 +35,9 @@ def manageLogin(request):
     return render(request,"login.html")
 
 
-def functionLogin(request):
-    if request.method == 'POST':
-        UserName=request.POST['userName']
-        Password=request.POST['password']
-        data=registration.objects.get(email=UserName,password=Password)
-        if data.type==1:
-            return render(request,"index.html")
-        elif data.type==2:
-            return render(request,"designation.html")
-        elif data.type==3:
-            return render(request,"about.html")
-        else:
-            return render(request,"login.html")
+def manageLogin(request):
+    return render(request,"login.html")
+   
 
 
 
@@ -216,7 +206,7 @@ def updateRegistration(request, id):
 
 
 #login
-def manageLogin(request):
+def functionLogin(request):
     if request.method=="POST":
         ur=request.POST['userName']
         ps=request.POST['password']
@@ -226,6 +216,7 @@ def manageLogin(request):
             request.session['email']=data.email
             request.session['type']=data.type
             if data.type==1:
+                data=registration.objects.get(email="meetlimbasiya66@gmail.com")
                 return redirect('index')
             elif data.type==2:
                 return redirect('service')
@@ -236,5 +227,4 @@ def manageLogin(request):
     else:
         return redirect("index")
 def manageLogout(request):
-    del request.session['username']
-    return redirect("login")
+    return redirect("manageLogin")
