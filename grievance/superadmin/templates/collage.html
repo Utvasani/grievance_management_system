@@ -30,7 +30,7 @@
                                  <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuOutlineButton6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuOutlineButton6">
                       <button type="button" class="btn btn-inverse-warning btn-fw" data-bs-toggle="modal" data-bs-target="#staticBackdropp{{i.id}}">Update</button>
-                                  <a href="/superadmin/deleteCollage/{{ i.id }}"><button type="button" class="btn btn-inverse-danger btn-fw">Delete</button></a>
+                                  <a href="/deleteCollage/{{ i.id }}"><button type="button" class="btn btn-inverse-danger btn-fw">Delete</button></a>
                                 </div>
                               </div>
                             </div>
@@ -50,7 +50,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
-                            <form method = "post" action="/superadmin/updateCollage/{{i.id}}" enctype="multipart/form-data">
+                            <form method = "post" action="/updateCollage/{{i.id}}" enctype="multipart/form-data">
                               {% csrf_token %}.
                               <div class="form-group">
                                 <label for="disabledTextInput">COLLAGE ID :{{i.id}}</label>
@@ -105,7 +105,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form method = "POST" action="/superadmin/addCollage/" enctype="multipart/form-data">
+            <form method = "POST" action="/addCollage/" enctype="multipart/form-data">
               {% csrf_token %}
               
               <div class="col-md-10">

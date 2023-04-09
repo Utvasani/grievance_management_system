@@ -46,7 +46,7 @@
                                             <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuOutlineButton6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuOutlineButton6">
                                   <button type="button" class="btn btn-inverse-warning btn-fw" data-bs-toggle="modal" data-bs-target="#staticBackdropp{{i.id}}">Update</button>
-                                              <a href="/superadmin/deleteDesignation/{{ i.id }}"><button type="button" class="btn btn-inverse-danger btn-fw">Delete</button></a>
+                                              <a href="/deleteDesignation/{{ i.id }}"><button type="button" class="btn btn-inverse-danger btn-fw">Delete</button></a>
                                             </div>
                                     </td>
                                     <div class="modal fade" id="staticBackdropp{{i.id}}"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -57,7 +57,7 @@
                                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                              <form method = "post" action="/superadmin/updateDesignation/{{i.id}}" enctype="multipart/form-data">
+                                              <form method = "post" action="/updateDesignation/{{i.id}}" enctype="multipart/form-data">
                                                 {% csrf_token %}
                                                 <div class="form-group">
                                                   <label for="disabledTextInput">DESIGNATION ID :{{i.id}}</label>
@@ -118,7 +118,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form method = "POST" action="/superadmin/addDesignation/" enctype="multipart/form-data">
+            <form method = "POST" action="/addDesignation/" enctype="multipart/form-data">
               {% csrf_token %}
               
               <div class="col-md-10">

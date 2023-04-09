@@ -58,7 +58,7 @@
                                             <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuOutlineButton6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuOutlineButton6">
                                   <button type="button" class="btn btn-inverse-warning btn-fw" data-bs-toggle="modal" data-bs-target="#staticBackdropp{{i.id}}">Update</button>
-                                              <a href="/superadmin/deleteUser/{{ i.id }}"><button type="button" class="btn btn-inverse-danger btn-fw">Delete</button></a>
+                                              <a href="/deleteUser/{{ i.id }}"><button type="button" class="btn btn-inverse-danger btn-fw">Delete</button></a>
                                             </div>
                                     </td>
                                     <div class="modal fade" id="staticBackdropp{{i.id}}"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -69,7 +69,7 @@
                                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                              <form method = "post" action="/superadmin/updateUser/{{i.id}}" enctype="multipart/form-data">
+                                              <form method = "post" action="/updateUser/{{i.id}}" enctype="multipart/form-data">
                                                 {% csrf_token %}
                                                 <div class="form-group">
                                                   <label for="disabledTextInput">USER ID :{{i.id}}</label>
@@ -157,7 +157,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form method = "POST" action="/superadmin/addUser/" enctype="multipart/form-data">
+            <form method = "POST" action="/addUser/" enctype="multipart/form-data">
               {% csrf_token %}
               <div class="col-md-10">
                 <label for="validationCustom03" class="form-label">User Name</label>
@@ -171,13 +171,7 @@
                 <label for="validationCustom03" class="form-label">Father Name</label>
                 <input type="text" class="form-control" id="fatherName" name="fatherName" required> 
               </div>
-              <br>
-              <label for="validationCustom03" class="form-label">Choose Department:</label>
-              <select class="col-md-10 form-select" name="department" id="department"  aria-label="Default select example">
-                {%for j in Department%}
-                <option value="{{j.departmentname}}">{{j.departmentname}}</option>
-                {%endfor%}
-              </select>
+              
               <br><label for="validationCustom03" class="form-label">Choose Designation:</label>
               <select class="col-md-10 form-select" name="designation" id="designation"  aria-label="Default select example">
                 {%for j in Designation%}
@@ -185,6 +179,13 @@
                 {%endfor%}
               </select>
               <br>
+              <label for="validationCustom03" class="form-label">Choose Department:</label>
+              
+              <select class="col-md-10 form-select" name="department" id="department"  aria-label="Default select example">
+                {%for j in Department%}
+                <option value="{{j.departmentname}}">{{j.departmentname}}</option>
+                {%endfor%}
+              </select>
               <div class="col-md-10">
                 <label for="validationCustom03" class="form-label">Semester</label>
                 <input type="number" class="form-control" id="semester" name="semester" required> 

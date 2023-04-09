@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect
 from django.shortcuts import redirect
 from django.utils.datastructures import MultiValueDictKeyError
-from user.models import *
 from superadmin.models import *
 from django.db.models import *
 from django.core.mail import send_mail,EmailMultiAlternatives
@@ -9,11 +8,8 @@ from django.conf import settings
 from pathlib import Path,os
 from django.http import *
 # Create your views here.
-def super_admin_index(request):
-     if 'username' not in request.session:
-         return redirect("login")
-     else:
-         return render(request,"super_admin_index.html")
+def index(request):
+    return render(request,"index.html")
 def manageCollage(request):
     Collage=collage.objects.all()
     return render(request,"collage.html",{'collage':Collage})
@@ -52,7 +48,9 @@ def functionLogin(request):
             return render(request,"about.html")
         else:
             return render(request,"login.html")
-        
+
+
+
 #manage collage
 def addCollage(request):
     if request.method == 'POST':
@@ -85,6 +83,10 @@ def updateCollage(request, id):
     finally:
         Collage.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+
+
 #manage designation
 def addDesignation(request):
     if request.method == 'POST':
@@ -104,6 +106,10 @@ def updateDesignation(request, id):
     Designation.power=Power
     Designation.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+
+
 #manage department
 def addDepartment(request):
     if request.method == 'POST':
@@ -129,6 +135,10 @@ def updateDepartment(request, id):
     Department.collageId=Id
     Department.save()    
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+
+
 #Manage Users
 def addUser(request):
     if request.method == 'POST':
@@ -178,6 +188,10 @@ def updateUser(request, id):
     User.email=Email
     User.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+
+
 #manage Registration
 def addRegistration(request):
     if request.method == 'POST':
@@ -197,6 +211,10 @@ def updateRegistration(request, id):
     Collage.collageName=Name
     Collage.collageDescription=Description
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+
+
 #login
 def manageLogin(request):
     if request.method=="POST":
@@ -208,7 +226,7 @@ def manageLogin(request):
             request.session['email']=data.email
             request.session['type']=data.type
             if data.type==1:
-                return redirect('super_admin_index')
+                return redirect('index')
             elif data.type==2:
                 return redirect('service')
             else:
@@ -216,26 +234,7 @@ def manageLogin(request):
         else:
             return redirect("service") 
     else:
-        return redirect("super_admin_index")
+        return redirect("index")
 def manageLogout(request):
     del request.session['username']
     return redirect("login")
-def generate():
-    from random import randrange
-    num = randrange(1000, 9999)
-    return num
-def changePassword(request):
-    if request.method=="POST":
-        Email=request.POST['Email']
-        data=str(generate())
-        topic='Mender Company'
-        data='<p style="color:blue; font-style: oblique;font-size: 30px;">OTP:<b style="color:yellow;">' +data +'</b></p>'
-        from_email='mender.company@gmail.com'
-        to_email=Email
-        msg=EmailMultiAlternatives(topic,data,from_email,[to_email])
-        msg.content_subtype='html'
-        msg.send()
-        return redirect('check_OTP',data)
-
-    else:
-        return redirect('changePassword')

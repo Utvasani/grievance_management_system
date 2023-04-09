@@ -1,20 +1,23 @@
 from . import views
 from django.urls import path
 urlpatterns = [
-    path('', views.super_admin_index,name="super_admin_index"),
+    path('', views.index,name="index"),
     path('manageCollage/', views.manageCollage,name="manageCollage"),
     path('manageDepartment/', views.manageDepartment,name="manageDepartment"),
     path('manageDesignation/',views.manageDesignation,name='manageDesignation'),
     path('manageUsers/',views.manageUsers,name='manageUsers'),
     path('manageRegistration/',views.manageRegistration,name='manageRegistration'),
+
     path('manageLogin/',views.manageLogin,name='manageLogin'),
     path('manageLogout/',views.manageLogout,name='manageLogout'),
-    path('changePassword/',views.changePassword,name='changePassword'),
+    
+    
+    path('login/', views.manageLogin, name='manageLogin'),
+    path('functionLogin/', views.functionLogin, name='functionLogin'),
+
     path('addCollage/',views.addCollage,name='addCollage'),
     path('deleteCollage/<int:id>', views.deleteCollage, name='deleteCollage'),
     path('updateCollage/<int:id>', views.updateCollage, name='updateCollage'),
-    path('login/', views.manageLogin, name='manageLogin'),
-    path('functionLogin/', views.functionLogin, name='functionLogin'),
 
 
     path('addDesignation/',views.addDesignation,name='addDesignation'),
