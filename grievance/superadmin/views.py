@@ -9,7 +9,40 @@ from pathlib import Path,os
 from django.http import *
 # Create your views here.
 def index(request):
-    return render(request,"index.html")
+    if "Founder and Managing Trustee" in request.session:
+        sessionData=request.session['Founder and Managing Trustee']
+        sessionData=registration.objects.get(email=sessionData)
+        return render(request,"index.html",{"session":sessionData})
+    elif  "Vice-Chancellor" in request.session:
+        sessionData=request.session['Vice-Chancellor']
+        sessionData=registration.objects.get(email=sessionData)
+        return render(request,"index.html",{"session":sessionData})
+    elif "Vice-President" in request.session:
+        sessionData=request.session['Vice-President']
+        sessionData=registration.objects.get(email=sessionData)
+        return render(request,"index.html",{"session":sessionData})
+    elif "Director" in request.session:
+        sessionData=request.session['Director']
+        sessionData=registration.objects.get(email=sessionData)
+        return render(request,"index.html",{"session":sessionData})
+    elif "Head Of Department" in request.session:
+        sessionData=request.session['Head Of Department']
+        sessionData=registration.objects.get(email=sessionData)
+        return render(request,"index.html",{"session":sessionData})
+    elif "Teacher" in request.session:
+        sessionData=request.session['Teacher']
+        sessionData=registration.objects.get(email=sessionData)
+        return render(request,"index.html",{"session":sessionData})
+    elif "student" in request.session:
+        sessionData=request.session['student']
+        sessionData=registration.objects.get(email=sessionData)
+        return render(request,"index.html",{"session":sessionData})
+    elif "admin" in request.session:
+        sessionData=request.session['admin']
+        sessionData=registration.objects.get(email=sessionData)
+        return render(request,"index.html",{"session":sessionData})
+    else:
+        return redirect("manageLogin")
 def manageCollage(request):
     Collage=collage.objects.all()
     return render(request,"collage.html",{'collage':Collage})
@@ -146,7 +179,7 @@ def addUser(request):
         DeptData=DepartmentId
         DesigData=DesignationId
         user(department=DeptData,designation=DesigData,userName=UserName,surName=SurName,fatherName=FatherName,semester=Semester,phoneNumber=PhoneNumber,address=Address,email=Email).save()
-        registration(email=Email,username=UserName,password="password@123").save()
+        registration(email=Email,username=UserName,password="password@123",type=DesigData).save()
         return redirect(request.META.get('HTTP_REFERER'))
 def deleteUser(request, id):
   Users = user.objects.get(id=id)
@@ -212,19 +245,49 @@ def functionLogin(request):
         ps=request.POST['password']
         data=registration.objects.get(email=ur,password=ps)
         if data.email==ur and data.password==ps:
-            request.session['username']=data.username
-            request.session['email']=data.email
-            request.session['type']=data.type
-            if data.type==1:
-                data=registration.objects.get(email="meetlimbasiya66@gmail.com")
+            if data.type.designationName=="Founder and Managing Trustee":
+                request.session["Founder and Managing Trustee"]=data.email
                 return redirect('index')
-            elif data.type==2:
-                return redirect('service')
+            elif data.type.designationName=="Vice-Chancellor":
+                request.session["Vice-Chancellor"]=data.email
+                return redirect('index')
+            elif data.type.designationName=="Vice-President":
+                request.session["Vice-President"]=data.email
+                return redirect('index')
+            elif data.type.designationName=="Director":
+                request.session["Director"]=data.email
+                return redirect('index')
+            elif data.type.designationName=="Head Of Department":
+                request.session["Head Of Department"]=data.email
+                return redirect('index')
+            elif data.type.designationName=="Teacher":
+                request.session["Teacher"]=data.email
+                return redirect('index')
+            elif data.type.designationName=="student":
+                request.session["student"]=data.email
+                return redirect('index')
             else:
-                return redirect('contact')
+                request.session["admin"]=data.email
+                return redirect('index')
         else:
-            return redirect("service") 
+            return redirect("manageDesignation") 
     else:
-        return redirect("index")
+        return redirect("manageCollage")
 def manageLogout(request):
+    if "Founder and Managing Trustee"  in request.session:
+        del request.session['Founder and Managing Trustee']
+    elif "Vice-Chancellor" in request.session:
+        del request.session['Vice-Chancellor']
+    elif "Vice-President" in request.session:
+        del request.session['Vice-President']
+    elif "Director" in request.session:
+        del request.session['Director']
+    elif "Head Of Department" in request.session:
+        del request.session['Head Of Department']
+    elif "Teacher" in request.session:
+        del request.session['Teacher']
+    elif "student" in request.session:
+        del request.session['student']
+    elif "admin" in request.session:
+        del request.session['admin']
     return redirect("manageLogin")

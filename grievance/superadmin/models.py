@@ -31,4 +31,5 @@ class registration(models.Model):
     email=models.EmailField()
     username=models.TextField(max_length=50)
     password=models.TextField(max_length=50)
-    type=models.IntegerField(default=1)
+    type=models.ForeignKey(designation,on_delete=models.CASCADE)
+    

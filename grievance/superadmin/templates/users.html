@@ -1,6 +1,7 @@
 /{%load static%}
 {% load mathfilters %}
 {%include 'header.html'%}
+
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
@@ -173,7 +174,7 @@
               </div>
               
               <br><label for="validationCustom03" class="form-label">Choose Designation:</label>
-              <select class="col-md-10 form-select" name="designation" id="designation"  aria-label="Default select example">
+              <select class="col-md-10 form-select" name="designation" id="designation" onchange="showInputs()" aria-label="Default select example" >
                 {%for j in Designation%}
                 <option value="{{j.designationName}}">{{j.designationName}}</option>
                 {%endfor%}
@@ -186,6 +187,7 @@
                 <option value="{{j.departmentname}}">{{j.departmentname}}</option>
                 {%endfor%}
               </select>
+
               <div class="col-md-10">
                 <label for="validationCustom03" class="form-label">Semester</label>
                 <input type="number" class="form-control" id="semester" name="semester" required> 
