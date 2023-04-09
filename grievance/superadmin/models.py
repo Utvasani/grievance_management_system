@@ -22,6 +22,7 @@ class user(models.Model):
     fatherName=models.TextField(max_length=20)
     department=models.ForeignKey(department,on_delete=models.CASCADE)
     designation=models.ForeignKey(designation,on_delete=models.CASCADE)
+    Collage=models.ForeignKey(collage,on_delete=models.CASCADE)
     semester=models.IntegerField()
     phoneNumber=models.CharField(max_length=10)
     email=models.EmailField()

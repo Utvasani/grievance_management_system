@@ -60,7 +60,8 @@ def manageUsers(request):
     Users=user.objects.all()
     Designation=designation.objects.all()
     Department=department.objects.all()
-    return render(request,"users.html",{"Users":Users,"Designation":Designation,"Department":Department})
+    Collage=collage.objects.all()
+    return render(request,"users.html",{"Users":Users,"Designation":Designation,"Department":Department,"Collage":Collage})
 def manageRegistration(request):
     Registration=registration.objects.all()
     return render(request,"registration.html",{'Registration':Registration})
